@@ -17,11 +17,13 @@ import {
 
 const App = () => {
   return (
+    <>
     <View style={{ flex: 1, backgroundColor: 'white', flexDirection: 'column' }}>
       <AppHeader />
       <AppBody />
       <AppFooter />
     </View>
+    </>
   );
 };
 
