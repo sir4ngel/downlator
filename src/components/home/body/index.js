@@ -5,7 +5,8 @@ import {
     Text,
     TextInput,
     Button,
-    Alert
+    Alert,
+    StyleSheet
 } from 'react-native';
 
 class AppBody extends Component {
@@ -24,10 +25,10 @@ class AppBody extends Component {
 
     handleText(n, inputN) {
         if (inputN == 1) {
-            this.setState({ mbits: n.replace(/\s/g, '') });
+            this.setState({ mbits: n });
             //this.setState({mbits: parseFloat(n)});
         } else {
-            this.setState({ fileSize: n.replace(/\s/g, '') });
+            this.setState({ fileSize: n });
             //this.setState({fileSize: parseFloat(n)});
         }
     }
@@ -83,10 +84,22 @@ class AppBody extends Component {
 
     render() {
         return (
-            <View style={{ flex: 5, backgroundColor: 'skyblue' }}>
-                <View>
-                    <TextInput value={this.state.mbits.toString().trim()} keyboardType="numeric" placeholder="Megabits" onChangeText={(a) => this.handleText(a, 1)} style={{ borderColor: 'black', borderWidth: 1 }}></TextInput>
-                    <TextInput value={this.state.fileSize.toString().trim()} keyboardType="numeric" placeholder="File Size" onChangeText={(a) => this.handleText(a, 2)} style={{ borderColor: 'black', borderWidth: 1 }}></TextInput>
+            <View style={styles.container}>
+                <View style={{padding: 10}}>
+                    <TextInput
+                        value={this.state.mbits.trim()}
+                        keyboardType="numeric"
+                        placeholder="Megabits"
+                        onChangeText={(a) => this.handleText(a, 1)}
+                        style={{ borderColor: 'black', borderWidth: 1 }}></TextInput>
+
+                    <TextInput
+                        value={this.state.fileSize.trim()}
+                        keyboardType="numeric"
+                        placeholder="File Size"
+                        onChangeText={(a) => this.handleText(a, 2)}
+                        style={{ borderColor: 'black', borderWidth: 1 }}></TextInput>
+
                     <Picker
                         selectedValue={this.state.sizeType}
                         style={{ height: 50, width: 100 }}
@@ -97,12 +110,25 @@ class AppBody extends Component {
                         <Picker.Item label="MB" value="MB" />
                         <Picker.Item label="KB" value="KB" />
                     </Picker>
+                </View>
+                <View style={{alignSelf: 'center', 
+                padding: 10, width: 150}}>
                     <Button title="Calculate" onPress={() => this.handleOperation()}></Button>
+                </View>
+                <View style={{justifyContent: 'center', alignSelf: 'center', padding: 10}}>
                     <Text>El tiempo de descarga es: {this.state.horas} horas {this.state.min} minutos {this.state.seg} segundos</Text>
                 </View>
             </View>
         );
     }
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 5,
+        backgroundColor: 'skyblue',
+        justifyContent: 'space-between'
+    }
+});
 
 export default AppBody;
