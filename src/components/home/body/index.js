@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import { Picker } from '@react-native-picker/picker';
 import {
     View,
     Text,
     TextInput,
     Button,
     Alert,
-    StyleSheet,
-    TouchableOpacity,
-    Image
+    StyleSheet
 } from 'react-native';
 
 class AppBody extends Component {
@@ -37,6 +34,19 @@ class AppBody extends Component {
     }
 
     handleOperation() {
+        if (this.state.mbits == '' || this.state.fileSize == '') {
+            Alert.alert("Algun campo esta vacio.");
+        } else if (this.state.mbits < 0 || this.state.fileSize < 0) {
+            Alert.alert("Por favor, escribe numeros positivos.");
+        } else {
+            var tiempo = (this.state.fileSize * 1024) / (this.state.mbits / 8);
+            var horas1 = Math.trunc(tiempo / 3600);
+            var min1 = Math.trunc((tiempo - (horas1 * 3600)) / 60);
+            var seg1 = Math.trunc(tiempo - (horas1 * 3600 + min1 * 60));
+            this.setState({ horas: horas1, min: min1, seg: seg1 });
+            console.log(typeof this.state.mbits);
+        }
+        /*
         switch (this.state.sizeType) {
             case 'GB':
                 if (this.state.mbits == '' || this.state.fileSize == '') {
@@ -83,6 +93,7 @@ class AppBody extends Component {
                 }
                 break;
         }
+        */
     }
 
     render() {
@@ -103,25 +114,12 @@ class AppBody extends Component {
                         placeholder="File Size"
                         onChangeText={(a) => this.handleText(a, 2)}
                         style={{ borderColor: 'black', borderWidth: 1 }}></TextInput>
-
-                    <Picker
-                        selectedValue={this.state.sizeType}
-                        style={{ height: 50, width: 100 }}
-                        onValueChange={(itemValue, itemIndex) =>
-                            this.setState({ sizeType: itemValue })
-                        }>
-                        <Picker.Item label="GB" value="GB" />
-                        <Picker.Item label="MB" value="MB" />
-                        <Picker.Item label="KB" value="KB" />
-                    </Picker>
                 </View>
                 <View style={{
                     alignSelf: 'center',
                     padding: 10
                 }}>
-                    <TouchableOpacity onPress={() => this.handleOperation()}>
-                        <Image style={styles.buttonImage} source={require('downlator/src/resources/images/menu.png')}></Image>
-                    </TouchableOpacity>
+                    <Button title="Calculate" onPress={() => this.handleOperation()}></Button>
                 </View>
                 <View style={{ justifyContent: 'center', alignSelf: 'center', padding: 10 }}>
                     <Text>El tiempo de descarga es: {this.state.horas} horas {this.state.min} minutos {this.state.seg} segundos</Text>
