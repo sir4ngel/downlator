@@ -6,7 +6,9 @@ import {
     TextInput,
     Button,
     Alert,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity,
+    Image
 } from 'react-native';
 
 class AppBody extends Component {
@@ -30,6 +32,7 @@ class AppBody extends Component {
         } else {
             this.setState({ fileSize: n });
             //this.setState({fileSize: parseFloat(n)});
+            //<Button title="Calculate" onPress={() => this.handleOperation()}></Button>
         }
     }
 
@@ -85,7 +88,8 @@ class AppBody extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={{padding: 10}}>
+                <View style={{ 
+                    padding: 10}}>
                     <TextInput
                         value={this.state.mbits.trim()}
                         keyboardType="numeric"
@@ -111,11 +115,15 @@ class AppBody extends Component {
                         <Picker.Item label="KB" value="KB" />
                     </Picker>
                 </View>
-                <View style={{alignSelf: 'center', 
-                padding: 10, width: 150}}>
-                    <Button title="Calculate" onPress={() => this.handleOperation()}></Button>
+                <View style={{
+                    alignSelf: 'center',
+                    padding: 10
+                }}>
+                    <TouchableOpacity onPress={() => this.handleOperation()}>
+                        <Image style={styles.buttonImage} source={require('downlator/src/resources/images/menu.png')}></Image>
+                    </TouchableOpacity>
                 </View>
-                <View style={{justifyContent: 'center', alignSelf: 'center', padding: 10}}>
+                <View style={{ justifyContent: 'center', alignSelf: 'center', padding: 10 }}>
                     <Text>El tiempo de descarga es: {this.state.horas} horas {this.state.min} minutos {this.state.seg} segundos</Text>
                 </View>
             </View>
@@ -128,6 +136,10 @@ const styles = StyleSheet.create({
         flex: 5,
         backgroundColor: 'skyblue',
         justifyContent: 'space-between'
+    },
+    buttonImage: {
+        width: 30,
+        height: 30
     }
 });
 

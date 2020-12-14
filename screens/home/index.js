@@ -19,11 +19,13 @@ import {
 const Home = ({navigation}) => {
 
   return (
+    <>
     <View style={{ flex: 1, backgroundColor: 'white', flexDirection: 'column' }}>
       <AppHeader navigation={navigation} />
       <AppBody />
       <AppFooter />
     </View>
+    </>
   );
 };
 
