@@ -1,28 +1,45 @@
+import * as React from 'react';
+import { Button, View } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import HomeStack from '../home-stack';
-import AboutStack from '../about-stack';
-import React from 'react';
+import Home from 'downlator/screens/home';
+import About from 'downlator/screens/about';
 
-const { Navigator, Screen } = createDrawerNavigator();
+function HomeScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button
+        onPress={() => navigation.navigate('Notifications')}
+        title="Go to notifications"
+      />
+    </View>
+  );
+}
 
-export const RootDrawerNavigator = () => (
-  <Navigator initialRouteName='Home'>
-    <Screen
-      name='Calculator'
-      component={HomeStack}
-    />
-    <Screen
-      name='About'
-      component={AboutStack}
-    />
-  </Navigator>
-);
+function HomeS({navigation}) {
+  return(
+    <Home navigation={navigation} />
+  );
+}
+function NotificationsScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button onPress={() => navigation.goBack()} title="Go back home" />
+    </View>
+  );
+}
 
-export const AppNavigator = () => (
-  <NavigationContainer>
-    <RootDrawerNavigator />
-  </NavigationContainer>
-);
+const Drawer = createDrawerNavigator();
 
-export default AppNavigator;
+function MyDrawer() {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen name="Home" component={HomeS} />
+        <Drawer.Screen name="About" component={About} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default MyDrawer;

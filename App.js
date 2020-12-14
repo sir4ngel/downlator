@@ -7,14 +7,14 @@
  */
 
 import React from 'react';
-import {AppNavigator} from 'downlator/routes/drawer';
+import MyDrawer from 'downlator/routes/drawer';
 import {
   StyleSheet
 } from 'react-native';
 
 export default function App(){
   return (
-    <AppNavigator />
+    <MyDrawer />
   );
 };
 

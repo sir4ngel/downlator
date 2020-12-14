@@ -6,19 +6,21 @@ import {
     View,
     Text,
     Image,
-    StyleSheet
+    Button,
+    StyleSheet,
+    TouchableOpacity
 } from 'react-native';
 
-const AppHeader = ({navigation}) => {
-
+const AppHeader = ({ navigation }) => {
     const openMenu = () => {
         navigation.openDrawer()
-      }
-
+    }
     return (
         <View style={styles.container}>
             <View style={styles.menuButtonContainer}>
-                <MenuButton onPress={openMenu}/>
+                <TouchableOpacity onPress={openMenu}>
+                    <Image style={styles.buttonImage} source={require('downlator/src/resources/images/menu.png')}></Image>
+                </TouchableOpacity>
             </View>
             <View>
                 <HeaderLogo />
@@ -29,8 +31,7 @@ const AppHeader = ({navigation}) => {
 
 const styles = StyleSheet.create({
     container: {
-        width: Dimensions.get('window').width,
-        height: '100%',
+        flex: 1,
         backgroundColor: 'powderblue',
         flexDirection: 'row',
         justifyContent: 'center',
@@ -39,6 +40,10 @@ const styles = StyleSheet.create({
     menuButtonContainer: {
         position: 'absolute',
         left: 16
+    },
+    buttonImage: {
+        width: 30,
+        height: 30
     }
 });
 
