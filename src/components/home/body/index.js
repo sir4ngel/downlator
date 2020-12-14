@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Picker } from '@react-native-picker/picker';
 import {
     View,
     Text,
@@ -18,7 +19,7 @@ class AppBody extends Component {
             min: null,
             seg: null,
             auxiliar: null,
-            sizeType: null
+            sizeType: 'GB'
         };
     }
 
@@ -29,11 +30,11 @@ class AppBody extends Component {
         } else {
             this.setState({ fileSize: n });
             //this.setState({fileSize: parseFloat(n)});
-            //<Button title="Calculate" onPress={() => this.handleOperation()}></Button>
         }
     }
 
     handleOperation() {
+        /*
         if (this.state.mbits == '' || this.state.fileSize == '') {
             Alert.alert("Algun campo esta vacio.");
         } else if (this.state.mbits < 0 || this.state.fileSize < 0) {
@@ -46,7 +47,8 @@ class AppBody extends Component {
             this.setState({ horas: horas1, min: min1, seg: seg1 });
             console.log(typeof this.state.mbits);
         }
-        /*
+        */
+
         switch (this.state.sizeType) {
             case 'GB':
                 if (this.state.mbits == '' || this.state.fileSize == '') {
@@ -93,14 +95,14 @@ class AppBody extends Component {
                 }
                 break;
         }
-        */
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <View style={{ 
-                    padding: 10}}>
+                <View style={{
+                    padding: 10
+                }}>
                     <TextInput
                         value={this.state.mbits.trim()}
                         keyboardType="numeric"
@@ -114,6 +116,17 @@ class AppBody extends Component {
                         placeholder="File Size"
                         onChangeText={(a) => this.handleText(a, 2)}
                         style={{ borderColor: 'black', borderWidth: 1 }}></TextInput>
+
+                    <Picker
+                        selectedValue={this.state.sizeType}
+                        style={{ height: 50, width: 100 }}
+                        onValueChange={(itemValue, itemIndex) =>
+                            this.setState({ sizeType: itemValue })
+                        }>
+                        <Picker.Item label="GB" value="GB" />
+                        <Picker.Item label="MB" value="MB" />
+                        <Picker.Item label="KB" value="KB" />
+                    </Picker>
                 </View>
                 <View style={{
                     alignSelf: 'center',
