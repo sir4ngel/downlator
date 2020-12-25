@@ -34,7 +34,7 @@ const Drawer = createDrawerNavigator();
 function MyDrawer() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Navigator drawerPosition="right" initialRouteName="Home" >
         <Drawer.Screen name="Home" component={HomeS} />
         <Drawer.Screen name="About" component={About} />
       </Drawer.Navigator>
