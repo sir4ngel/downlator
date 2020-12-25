@@ -6,7 +6,7 @@ import {
 
 const AppFooter = (props) => {
     return (
-        <View style={{ flex: 1, backgroundColor: 'steelblue' }}>
+        <View style={{ flex: 1 }}>
             <Text>Anuncios</Text>
         </View>
     );

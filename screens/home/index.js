@@ -20,7 +20,7 @@ const Home = ({navigation}) => {
 
   return (
     <>
-    <View style={{ flex: 1, backgroundColor: 'white', flexDirection: 'column' }}>
+    <View style={{ flex: 1, backgroundColor: '#EBECF0', flexDirection: 'column' }}>
       <AppHeader navigation={navigation} />
       <AppBody />
       <AppFooter />
