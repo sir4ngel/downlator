@@ -85,14 +85,13 @@ const styles = StyleSheet.create({
     },
     menuButton: {
         width: 64,
-        height: 64,
-        alignSelf: 'flex-end'
+        height: 64
     },
     titulo: {
         color: '#FF8585',
         fontFamily: 'Montserrat-Bold',
-        fontSize: 30,
-        left: 25
+        fontSize: 25,
+        alignSelf: 'center'
     },
     fecha: {
         color: '#9BA4B0',
@@ -107,6 +106,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flex: 1,
         justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 
