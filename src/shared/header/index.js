@@ -61,11 +61,15 @@ const AppHeader = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.fecha}>{fechaHoy()}</Text>
-            <Text style={styles.titulo}>Download Calculator</Text>
-            <TouchableOpacity onPress={openMenu} style={styles.menuButton}>
-                <Image style={styles.buttonImage} source={require('downlator/src/resources/home/assets/grupo5.png')}></Image>
-            </TouchableOpacity>
+            <View style={styles.textContainer}>
+                <Text style={styles.fecha}>{fechaHoy()}</Text>
+                <Text style={styles.titulo}>Download Calculator</Text>
+            </View>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity onPress={openMenu} style={styles.menuButton}>
+                    <Image style={styles.buttonImage} source={require('downlator/src/resources/home/assets/grupo5.png')}></Image>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }
@@ -82,23 +86,27 @@ const styles = StyleSheet.create({
     menuButton: {
         width: 64,
         height: 64,
-        left: 320,
-        top: 30
+        alignSelf: 'flex-end'
     },
     titulo: {
         color: '#FF8585',
         fontFamily: 'Montserrat-Bold',
         fontSize: 30,
-        position: 'absolute',
-        top: 45,
         left: 25
     },
     fecha: {
         color: '#9BA4B0',
         fontFamily: 'Montserrat-Medium',
-        position: 'absolute',
-        top: 20,
         left: 25
+    },
+    textContainer: {
+        flex: 3,
+        justifyContent: 'center',
+        
+    },
+    buttonContainer: {
+        flex: 1,
+        justifyContent: 'center',
     }
 });
 

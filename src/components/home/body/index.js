@@ -42,7 +42,7 @@ class AppBody extends Component {
                     var horas = Math.trunc(tiempo / 3600);
                     var min = Math.trunc((tiempo - (horas * 3600)) / 60);
                     var seg = Math.trunc(tiempo - (horas * 3600 + min * 60));
-                    this.setState({ timeText: horas + ' hours ' + min + ' minutes ' + seg + ' seconds approximately' })
+                    this.setState({ timeText: horas + ' hours ' + min + ' minutes ' + seg + ' seconds' })
                     Keyboard.dismiss()
                 }
                 break;
@@ -57,7 +57,7 @@ class AppBody extends Component {
                     var horas = Math.trunc(tiempo / 3600);
                     var min = Math.trunc((tiempo - (horas * 3600)) / 60);
                     var seg = Math.trunc(tiempo - (horas * 3600 + min * 60));
-                    this.setState({ timeText: horas + ' hours ' + min + ' minutes ' + seg + ' seconds approximately' })
+                    this.setState({ timeText: horas + ' hours ' + min + ' minutes ' + seg })
                     Keyboard.dismiss();
                 }
                 break;
@@ -81,58 +81,63 @@ class AppBody extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.fileSizeSubtitle}>Average Speed</Text>
-                <TextInput
-                    value={this.state.mbits.trim()}
-                    keyboardType="numeric"
-                    placeholderTextColor="#98A4B1"
-                    color="#A1AFC3"
-                    onChangeText={(a) => this.handleText(a, 1)}
-                    maxLength={5}
-                    elevation={2}
-                    style={styles.fileSizeInput}></TextInput>
-
-                <Text style={{
-                    color: '#9BA4B0',
-                    left: 25,
-                    fontFamily: 'Montserrat-Bold',
-                    top: 20,
-                    fontSize: 20
-                }}>File Size</Text>
-
-                <View style={{ flexDirection: 'row', top: 20 }}>
-                    <TextInput
-                        value={this.state.fileSize.trim()}
-                        keyboardType="numeric"
-                        placeholderTextColor="#98A4B1"
-                        color="#A1AFC3"
-                        onChangeText={(a) => this.handleText(a, 2)}
-                        maxLength={20}
-                        elevation={2}
-                        style={styles.fileSizeInput}>
-                    </TextInput>
-
-                    <View style={styles.pickerFileSize} elevation={2}>
-                        <Picker
-                            selectedValue={this.state.sizeType}
-                            dropdownIconColor="#A1AFC3"
-                            mode="dropdown"
-                            style={{ color: '#9BA4B0' }}
-                            onValueChange={(itemValue, itemIndex) =>
-                                this.setState({ sizeType: itemValue })
-                            }>
-                            <Picker.Item label="GB" value="GB" />
-                            <Picker.Item label="MB" value="MB" />
-                            <Picker.Item label="KB" value="KB" />
-                        </Picker>
+                <View style={styles.subContainer1}>
+                    <View style={{ flex: 3, left: 25, justifyContent: 'space-around', flexDirection: 'column' }}>
+                        <Text style={styles.fileSizeSubtitle}>Average Speed</Text>
+                        <TextInput
+                            value={this.state.mbits.trim()}
+                            keyboardType="numeric"
+                            placeholderTextColor="#98A4B1"
+                            color="#A1AFC3"
+                            onChangeText={(a) => this.handleText(a, 1)}
+                            maxLength={5}
+                            elevation={2}
+                            fontSize={20}
+                            style={styles.fileSizeInput}></TextInput>
+                        <Text style={{
+                            color: '#9BA4B0',
+                            fontFamily: 'Montserrat-Bold',
+                            fontSize: 20
+                        }}>File Size</Text>
+                        <TextInput
+                            value={this.state.fileSize.trim()}
+                            keyboardType="numeric"
+                            placeholderTextColor="#98A4B1"
+                            color="#A1AFC3"
+                            onChangeText={(a) => this.handleText(a, 2)}
+                            maxLength={20}
+                            elevation={2}
+                            fontSize={20}
+                            style={styles.fileSizeInput}>
+                        </TextInput>
+                    </View>
+                    <View style={{ flex: 1, justifyContent: 'flex-end', padding: 5 }}>
+                        <View style={styles.pickerFileSize} elevation={2}>
+                            <Picker
+                                selectedValue={this.state.sizeType}
+                                dropdownIconColor="#A1AFC3"
+                                mode="dropdown"
+                                style={{ color: '#9BA4B0' }}
+                                onValueChange={(itemValue, itemIndex) =>
+                                    this.setState({ sizeType: itemValue })
+                                }>
+                                <Picker.Item label="GB" value="GB" />
+                                <Picker.Item label="MB" value="MB" />
+                                <Picker.Item label="KB" value="KB" />
+                            </Picker>
+                        </View>
                     </View>
                 </View>
-                <View style={styles.buttonContainer1}>
-                    <TouchableOpacity onPress={() => this.handleOperation()} style={styles.buttonContainer}>
-                        <Text style={styles.buttonText}>CALCULATE</Text>
-                    </TouchableOpacity>
+                <View style={styles.subContainer2}>
+                    <View style={styles.buttonContainer1}>
+                        <TouchableOpacity onPress={() => this.handleOperation()} style={styles.buttonContainer}>
+                            <Text style={styles.buttonText}>CALCULATE</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <Text style={styles.timeText}>{this.state.timeText}</Text>
+                <View style={styles.subContainer3}>
+                    <Text style={styles.timeText}>{this.state.timeText}</Text>
+                </View>
             </View>
         );
     }
@@ -140,11 +145,11 @@ class AppBody extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 8
+        flex: 8,
+        justifyContent: 'space-between'
     },
     fileSizeSubtitle: {
         color: '#9BA4B0',
-        left: 25,
         fontSize: 20,
         fontFamily: 'Montserrat-Bold'
     },
@@ -159,15 +164,13 @@ const styles = StyleSheet.create({
             height: 56,
             width: 13
         },
-        left: 25,
-        width: '60%'
+        width: '80%'
     },
     pickerFileSize: {
         backgroundColor: '#EBECF0',
         height: 50,
         width: 90,
         color: '#A1AFC3',
-        left: 47,
         borderRadius: 0,
         borderWidth: 0,
         shadowColor: 'white',
@@ -196,17 +199,26 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     timeText: {
-        top: 200,
-        left: 55,
         color: '#9BA4B0',
         fontFamily: 'Montserrat-Bold',
         fontSize: 20,
-
     },
     buttonContainer1: {
-        top: 100,
         width: 190,
         height: 70,
+    },
+    subContainer1: {
+        flex: 1,
+        flexDirection: 'row',
+    },
+    subContainer2: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    subContainer3: {
+        flex: 1,
+        justifyContent: 'center',
         alignSelf: 'center'
     }
 });
