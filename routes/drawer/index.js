@@ -3,8 +3,7 @@ import { Button, View } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Home from 'downlator/screens/home';
-import About from 'downlator/screens/about';
-
+import {DrawerContent} from 'downlator/routes/drawer/drawerContent'
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -34,9 +33,8 @@ const Drawer = createDrawerNavigator();
 function MyDrawer() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator drawerPosition="right" initialRouteName="Home" >
+      <Drawer.Navigator drawerContent={props => <DrawerContent {... props} />} drawerPosition="right" initialRouteName="Home" >
         <Drawer.Screen name="Home" component={HomeS} />
-        <Drawer.Screen name="About" component={About} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
