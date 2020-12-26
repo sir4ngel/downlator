@@ -111,7 +111,7 @@ class AppBody extends Component {
                             style={styles.fileSizeInput}>
                         </TextInput>
                     </View>
-                    <View style={{ flex: 1, justifyContent: 'flex-end', padding: 5 }}>
+                    <View style={{ flex: 1, justifyContent: 'flex-end' }}>
                         <View style={styles.pickerFileSize} elevation={2}>
                             <Picker
                                 selectedValue={this.state.sizeType}
@@ -131,7 +131,7 @@ class AppBody extends Component {
                 <View style={styles.subContainer2}>
                     <View style={styles.buttonContainer1}>
                         <TouchableOpacity onPress={() => this.handleOperation()} style={styles.buttonContainer}>
-                            <Text style={styles.buttonText}>CALCULATE</Text>
+                            <Text style={styles.buttonText}>Calculate</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -179,24 +179,23 @@ const styles = StyleSheet.create({
         shadowOffset: {
             height: 56,
             width: 13
-        }
+        },
+        bottom: 5
     },
     buttonText: {
-        fontSize: 25,
+        fontSize: 20,
         color: "#fff",
         fontFamily: 'Montserrat-SemiBold',
-        alignSelf: "center",
         textTransform: "uppercase",
     },
     buttonContainer: {
         elevation: 8,
         backgroundColor: "#FF8585",
         borderRadius: 10,
-        paddingVertical: 10,
-        paddingHorizontal: 12,
         width: 190,
         height: 70,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     timeText: {
         color: '#9BA4B0',
