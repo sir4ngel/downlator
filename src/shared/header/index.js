@@ -82,12 +82,13 @@ const styles = StyleSheet.create({
     menuButton: {
         width: 64,
         height: 64,
-        left: 300,
+        left: 320,
         top: 30
     },
     titulo: {
+        color: '#FF8585',
         fontFamily: 'Montserrat-Bold',
-        fontSize: 25,
+        fontSize: 30,
         position: 'absolute',
         top: 45,
         left: 25
