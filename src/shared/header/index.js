@@ -62,8 +62,12 @@ const AppHeader = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.textContainer}>
-                <Text style={styles.fecha}>{fechaHoy()}</Text>
-                <Text style={styles.titulo}>Download Calculator</Text>
+                <View style={styles.dateTextContainer}>
+                    <Text style={styles.date}>{fechaHoy()}</Text>
+                </View>
+                <View style={styles.titleTextContainer}>
+                    <Text style={styles.title}>Download Calculator</Text>
+                </View>
             </View>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity onPress={openMenu} style={styles.menuButton}>
@@ -87,26 +91,34 @@ const styles = StyleSheet.create({
         width: 64,
         height: 64
     },
-    titulo: {
+    title: {
         color: '#FF8585',
         fontFamily: 'Montserrat-Bold',
-        fontSize: 25,
-        alignSelf: 'center'
+        fontSize: 30
     },
-    fecha: {
+    date: {
         color: '#9BA4B0',
-        fontFamily: 'Montserrat-Medium',
-        left: 25
+        fontFamily: 'Montserrat-Medium'
     },
     textContainer: {
-        flex: 3,
-        justifyContent: 'center',
-        
+        flex: 4,
+        justifyContent: 'center'
     },
     buttonContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    dateTextContainer: {
+        width: 150,
+        height: 20,
+        left: 25
+    },
+    titleTextContainer: {
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 310
     }
 });
 
