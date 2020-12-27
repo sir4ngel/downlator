@@ -4,10 +4,8 @@ import {
     View,
     Text,
     TextInput,
-    Button,
     Alert,
     StyleSheet,
-    Image,
     Keyboard
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -42,7 +40,7 @@ class AppBody extends Component {
                     var horas = Math.trunc(tiempo / 3600);
                     var min = Math.trunc((tiempo - (horas * 3600)) / 60);
                     var seg = Math.trunc(tiempo - (horas * 3600 + min * 60));
-                    this.setState({ timeText: horas + ' hours ' + min + ' minutes ' + seg + ' seconds' })
+                    this.setState({ timeText: horas + ' h ' + min + ' m ' + seg + ' s' })
                     Keyboard.dismiss()
                 }
                 break;
@@ -57,7 +55,7 @@ class AppBody extends Component {
                     var horas = Math.trunc(tiempo / 3600);
                     var min = Math.trunc((tiempo - (horas * 3600)) / 60);
                     var seg = Math.trunc(tiempo - (horas * 3600 + min * 60));
-                    this.setState({ timeText: horas + ' hours ' + min + ' minutes ' + seg })
+                    this.setState({ timeText: horas + ' hours ' + min + ' minutes ' + seg + ' seconds' })
                     Keyboard.dismiss();
                 }
                 break;
@@ -72,7 +70,7 @@ class AppBody extends Component {
                     var horas = Math.trunc(tiempo / 3600);
                     var min = Math.trunc((tiempo - (horas * 3600)) / 60);
                     var seg = Math.trunc(tiempo - (horas * 3600 + min * 60));
-                    this.setState({ timeText: horas + ' hours ' + min + ' minutes ' + seg + ' seconds approximately' })
+                    this.setState({ timeText: horas + ' hours ' + min + ' minutes ' + seg + ' seconds' })
                     Keyboard.dismiss();
                 }
                 break;
@@ -136,7 +134,9 @@ class AppBody extends Component {
                     </View>
                 </View>
                 <View style={styles.subContainer3}>
-                    <Text style={styles.timeText}>{this.state.timeText}</Text>
+                    <View style={styles.textTimeContainer}>
+                        <Text style={styles.timeText}>{this.state.timeText}</Text>
+                    </View>
                 </View>
             </View>
         );
@@ -180,7 +180,8 @@ const styles = StyleSheet.create({
             height: 56,
             width: 13
         },
-        bottom: 5
+        bottom: 5,
+        right: 10
     },
     buttonText: {
         fontSize: 20,
@@ -200,7 +201,7 @@ const styles = StyleSheet.create({
     timeText: {
         color: '#9BA4B0',
         fontFamily: 'Montserrat-Bold',
-        fontSize: 20,
+        fontSize: 25
     },
     buttonContainer1: {
         width: 190,
@@ -213,12 +214,18 @@ const styles = StyleSheet.create({
     subContainer2: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     subContainer3: {
         flex: 1,
         justifyContent: 'center',
-        alignSelf: 'center'
+        alignItems: 'center'
+    },
+    textTimeContainer: {
+        width: 370,
+        height: 100,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 
