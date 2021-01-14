@@ -3,11 +3,28 @@ import {
     View,
     Text,
     Image,
-    Button,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    Dimensions,
+    Platform,
+    PixelRatio
 } from 'react-native';
+const {
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
+} = Dimensions.get('window');
 
+// based on iphone 5s's scale
+const scale = SCREEN_WIDTH / 540;
+
+export function normalize(size) {
+    const newSize = size * scale
+    if (Platform.OS === 'ios') {
+        return Math.round(PixelRatio.roundToNearestPixel(newSize))
+    } else {
+        return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2
+    }
+}
 const AppHeader = ({ navigation }) => {
 
     const openMenu = () => {
@@ -19,7 +36,7 @@ const AppHeader = ({ navigation }) => {
         var mes;
         switch (fecha.getMonth() + 1) {
             case 1:
-                mes = "JAN";
+                mes = "ENE";
                 break;
             case 2:
                 mes = "FEB";
@@ -28,7 +45,7 @@ const AppHeader = ({ navigation }) => {
                 mes = "MAR";
                 break;
             case 4:
-                mes = "APR";
+                mes = "ABR";
                 break;
             case 5:
                 mes = "MAY";
@@ -40,7 +57,7 @@ const AppHeader = ({ navigation }) => {
                 mes = "JUL";
                 break;
             case 8:
-                mes = "AUG";
+                mes = "AGO";
                 break;
             case 9:
                 mes = "SEP";
@@ -52,7 +69,7 @@ const AppHeader = ({ navigation }) => {
                 mes = "NOV";
                 break;
             case 12:
-                mes = "DEC";
+                mes = "DIC";
                 break;
         }
         var fechaS = mes + ' ' + fecha.getDate() + ', ' + fecha.getFullYear();
@@ -65,14 +82,9 @@ const AppHeader = ({ navigation }) => {
                 <View style={styles.dateTextContainer}>
                     <Text style={styles.date}>{fechaHoy()}</Text>
                 </View>
-                <View style={styles.titleTextContainer}>
-                    <Text style={styles.title}>Download Calculator</Text>
+                <View style={styles.titleImageContainer}>
+                    <Image style={styles.titleImage} resizeMode='contain' source={require('downlator/src/resources/home/assets/title.png')}></Image>
                 </View>
-            </View>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={openMenu} style={styles.menuButton}>
-                    <Image style={styles.buttonImage} source={require('downlator/src/resources/home/assets/grupo5.png')}></Image>
-                </TouchableOpacity>
             </View>
         </View>
     );
@@ -81,7 +93,7 @@ const AppHeader = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 2,
-        flexDirection: 'row',
+        flexDirection: 'row'
     },
     buttonImage: {
         width: 64,
@@ -91,17 +103,13 @@ const styles = StyleSheet.create({
         width: 64,
         height: 64
     },
-    title: {
-        color: '#FF8585',
-        fontFamily: 'Montserrat-Bold',
-        fontSize: 30
-    },
     date: {
         color: '#9BA4B0',
-        fontFamily: 'Montserrat-Medium'
+        fontFamily: 'Montserrat-Bold',
+        fontSize: normalize(18)
     },
     textContainer: {
-        flex: 4,
+        flex: 1,
         justifyContent: 'center'
     },
     buttonContainer: {
@@ -114,11 +122,13 @@ const styles = StyleSheet.create({
         height: 20,
         left: 25
     },
-    titleTextContainer: {
-        alignSelf: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 310
+    titleImageContainer: {
+        justifyContent: 'center'
+    },
+    titleImage: {
+        width: 275,
+        height: 40,
+        left: 25
     }
 });
 

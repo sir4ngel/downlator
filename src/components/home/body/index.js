@@ -6,10 +6,28 @@ import {
     TextInput,
     Alert,
     StyleSheet,
-    Keyboard
+    Keyboard,
+    Dimensions,
+    Platform,
+    PixelRatio
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+const {
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
+} = Dimensions.get('window');
 
+// based on iphone 5s's scale
+const scale = SCREEN_WIDTH / 540;
+
+export function normalize(size) {
+    const newSize = size * scale
+    if (Platform.OS === 'ios') {
+        return Math.round(PixelRatio.roundToNearestPixel(newSize))
+    } else {
+        return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2
+    }
+}
 class AppBody extends Component {
     constructor(props) {
         super(props)
@@ -29,48 +47,56 @@ class AppBody extends Component {
         }
     }
     handleOperation() {
+        var velocity = this.state.mbits;
+        var weight = this.state.fileSize;
         switch (this.state.sizeType) {
             case 'GB':
-                if (this.state.mbits == '' || this.state.fileSize == '') {
+                if (velocity == '' || weight == '') {
                     Alert.alert("Algun campo esta vacio.");
-                } else if (this.state.mbits < 0 || this.state.fileSize < 0) {
+                } else if (velocity < 0 || weight < 0) {
                     Alert.alert("Por favor, escribe numeros positivos.");
-                } else {
-                    var tiempo = (this.state.fileSize * 1024) / (this.state.mbits / 8);
+                } else if(!velocity.match("^[\.0-9]+$") || !weight.match("^[\.0-9]+$")) {
+                    Alert.alert("Por favor, introduce valores numericos.");
+                }else {
+                    var tiempo = (weight * 1024) / (velocity / 8);
                     var horas = Math.trunc(tiempo / 3600);
                     var min = Math.trunc((tiempo - (horas * 3600)) / 60);
                     var seg = Math.trunc(tiempo - (horas * 3600 + min * 60));
-                    this.setState({ timeText: horas + ' h ' + min + ' m ' + seg + ' s' })
+                    this.setState({ timeText: horas + 'h ' + min + 'm ' + seg + 's' })
                     Keyboard.dismiss()
                 }
                 break;
 
             case 'MB':
-                if (this.state.mbits == '' || this.state.fileSize == '') {
+                if (velocity == '' || weight == '') {
                     Alert.alert("Algun campo esta vacio.");
-                } else if (this.state.mbits < 0 || this.state.fileSize < 0) {
+                } else if (velocity < 0 || weight < 0) {
                     Alert.alert("Por favor, escribe numeros positivos.");
-                } else {
-                    var tiempo = this.state.fileSize / (this.state.mbits / 8);
+                }else if(!velocity.match("^[\.0-9]+$") || !weight.match("^[\.0-9]+$")) {
+                    Alert.alert("Por favor, introduce valores numericos.");
+                }else {
+                    var tiempo = weight / (velocity / 8);
                     var horas = Math.trunc(tiempo / 3600);
                     var min = Math.trunc((tiempo - (horas * 3600)) / 60);
                     var seg = Math.trunc(tiempo - (horas * 3600 + min * 60));
-                    this.setState({ timeText: horas + ' hours ' + min + ' minutes ' + seg + ' seconds' })
+                    this.setState({ timeText: horas + 'h ' + min + 'm ' + seg + 's' })
                     Keyboard.dismiss();
                 }
                 break;
 
             case 'KB':
-                if (this.state.mbits == '' || this.state.fileSize == '') {
+                if (velocity == '' || weight == '') {
                     Alert.alert("Algun campo esta vacio.");
-                } else if (this.state.mbits < 0 || this.state.fileSize < 0) {
+                } else if (velocity < 0 || weight < 0) {
                     Alert.alert("Por favor, escribe numeros positivos.");
-                } else {
-                    var tiempo = (this.state.fileSize / 1024) / (this.state.mbits / 8);
+                } else if(!velocity.match("^[\.0-9]+$") || !weight.match("^[\.0-9]+$")) {
+                    Alert.alert("Por favor, introduce valores numericos.");
+                }else {
+                    var tiempo = (weight / 1024) / (velocity / 8);
                     var horas = Math.trunc(tiempo / 3600);
                     var min = Math.trunc((tiempo - (horas * 3600)) / 60);
                     var seg = Math.trunc(tiempo - (horas * 3600 + min * 60));
-                    this.setState({ timeText: horas + ' hours ' + min + ' minutes ' + seg + ' seconds' })
+                    this.setState({ timeText: horas + 'h ' + min + 'm ' + seg + 's' })
                     Keyboard.dismiss();
                 }
                 break;
@@ -81,7 +107,7 @@ class AppBody extends Component {
             <View style={styles.container}>
                 <View style={styles.subContainer1}>
                     <View style={{ flex: 3, left: 25, justifyContent: 'space-around', flexDirection: 'column' }}>
-                        <Text style={styles.fileSizeSubtitle}>Average Speed</Text>
+                        <Text style={styles.fileSizeSubtitle}>Velocidad de internet</Text>
                         <TextInput
                             value={this.state.mbits.trim()}
                             keyboardType="numeric"
@@ -95,8 +121,8 @@ class AppBody extends Component {
                         <Text style={{
                             color: '#9BA4B0',
                             fontFamily: 'Montserrat-Bold',
-                            fontSize: 20
-                        }}>File Size</Text>
+                            fontSize: normalize(25)
+                        }}>Tamaño del archivo</Text>
                         <TextInput
                             value={this.state.fileSize.trim()}
                             keyboardType="numeric"
@@ -129,7 +155,7 @@ class AppBody extends Component {
                 <View style={styles.subContainer2}>
                     <View style={styles.buttonContainer1}>
                         <TouchableOpacity onPress={() => this.handleOperation()} style={styles.buttonContainer}>
-                            <Text style={styles.buttonText}>Calculate</Text>
+                            <Text style={styles.buttonText}>Calcular</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -150,7 +176,7 @@ const styles = StyleSheet.create({
     },
     fileSizeSubtitle: {
         color: '#9BA4B0',
-        fontSize: 20,
+        fontSize: normalize(25),
         fontFamily: 'Montserrat-Bold'
     },
     fileSizeInput: {
@@ -191,7 +217,7 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         elevation: 8,
-        backgroundColor: "#FF8585",
+        backgroundColor: "#5072FC",
         borderRadius: 10,
         width: 190,
         height: 70,

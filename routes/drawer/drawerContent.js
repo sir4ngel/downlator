@@ -6,9 +6,7 @@ export function DrawerContent(props) {
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     return(
         <View style={styles.container}>
-            <Text style={styles.textVersion}>Version 0.0.1</Text>
-            <Text style={styles.darkModeText}>Dark Mode</Text>
-            <Switch disabled={true} style={styles.toggleButton} onValueChange={toggleSwitch} value={isEnabled}></Switch>
+            <Text style={styles.textVersion}>Versión 1.0.0</Text>
         </View>
     );
 }
