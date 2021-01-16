@@ -6,19 +6,18 @@ import {
 import {
     AdMobBanner
 } from 'react-native-admob'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AppFooter = (props) => {
     return (
         <View style={{ flex: 1 }}>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <View>
-                    <AdMobBanner
-                        adSize="Banner"
-                        adUnitID="ca-app-pub-6250912030916850/3556538800"
-                        onAdFailedToLoad={error => console.error(error)}
-                    />
-                </View>
-            </View>
+            <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <AdMobBanner
+                    adSize="Banner"
+                    adUnitID="ca-app-pub-6250912030916850/3556538800"
+                    onAdFailedToLoad={error => console.error(error)}
+                />
+            </SafeAreaView>
         </View>
     );
 }

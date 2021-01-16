@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     date: {
         color: '#9BA4B0',
         fontFamily: 'Montserrat-Bold',
-        fontSize: normalize(18)
+        fontSize: normalize(15)
     },
     textContainer: {
         flex: 1,
