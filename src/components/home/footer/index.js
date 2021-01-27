@@ -14,7 +14,7 @@ const AppFooter = (props) => {
             <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <AdMobBanner
                     adSize="Banner"
-                    adUnitID="ca-app-pub-6250912030916850/3556538800"
+                    adUnitID="ca-app-pub-3940256099942544/6300978111"
                     onAdFailedToLoad={error => console.error(error)}
                 />
             </SafeAreaView>
